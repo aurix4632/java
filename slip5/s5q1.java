@@ -1,48 +1,41 @@
-class ZeroNumberException extends Exception {
-    public ZeroNumberException() {
-        super("Number is 0");
+import java.util.Scanner;
+
+// User-defined exception class
+class ZeroException extends Exception {
+    public ZeroException(String msg) {
+        super(msg);
     }
 }
 
-public class FactorialCalculator1 {
-    public static long calculateFactorial(int number) {
-        if (number == 0) {
-            return 1; // Factorial of 0 is 1
+public class FactProgram {
+    // Method to calculate factorial
+    public static int fact(int n) {
+        int f = 1;
+        for (int i = 1; i <= n; i++) {
+            f *= i;
         }
-        
-        long factorial = 1;
-        for (int i = 1; i <= number; i++) {
-            factorial *= i;
-        }
-        return factorial;
+        return f;
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Ask user to input a number
+        System.out.println("Enter a number:");
+        int num = sc.nextInt();
+        
         try {
-            // Create a Scanner object to read user input
-            java.util.Scanner scanner = new java.util.Scanner(System.in);
-
-            // Prompt the user to enter a number
-            System.out.print("Enter a number: ");
-            int number = scanner.nextInt();
-
-            if (number == 0) {
-                throw new ZeroNumberException(); // Throw the custom exception for zero
+            // If the number is 0, throw user-defined exception
+            if (num == 0) {
+                throw new ZeroException("Number is 0");
             } else {
-                // Calculate and display the factorial
-                long factorial = calculateFactorial(number);
-                System.out.println("Factorial of " + number + " is: " + factorial);
+                // Calculate and display factorial
+                int result = fact(num);
+                System.out.println("Factorial of " + num + " is: " + result);
             }
-
-            // Close the Scanner
-            scanner.close();
-        } catch (ZeroNumberException e) {
-            System.err.println(e.getMessage()); // Handle the custom exception
-        } catch (java.util.InputMismatchException e) {
-            System.err.println("Invalid input. Please enter a valid number.");
+        } catch (ZeroException e) {
+            // Catch the custom exception and display its message
+            System.out.println(e.getMessage());
         }
     }
 }
-
-
-
